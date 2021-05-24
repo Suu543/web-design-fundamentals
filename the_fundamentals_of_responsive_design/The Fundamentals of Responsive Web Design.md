@@ -248,35 +248,550 @@ https://webkul.github.io/coolhue/
 
 수많은 크기가 다른 장치가 존재한다. 그렇기 때문에 웹 사이트를 구현할 때도 이 모든 장치의 크기를 고려한 디자인을 해야 한다. 이런 고려를 `HTML & CSS`에서는 반응형 웹이라 칭한다. `Media Queries`는 이런 반응형 웹을 구현할 때 유용하게 사용할 수 있는 프로퍼티다.
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" media="screen and (min-width: 400px)" href="over400.css" />
+    <title>Introduction to Media Queries</title>
+  </head>
+  <body>
+  </body>
+</html>
+```
 
+첫번째 `media query` 적용 방법
 
+```css
+/* over400.css */
+body {
+	background-color: brown;
+}
+```
 
+두번째 `media query` 적용 방법
 
+```css
+/* over400.css */
+@media screen and (max-width: 400px) {
+    body {
+        background-color: olivedrab;
+    }
+}
+```
 
+### Media Queries Challenges
 
+1. From `0 to 400px`, set the background color to lawn green
+2. From `401 to 599px`, set the background color to blue violet
+3. From `600 to wider` set the background color to dark red 
 
+`You can use either min-width or max-width`
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./media.css" />
+    <title>Document</title>
+  </head>
+  <body></body>
+</html>
 
+```
 
+```css
+/* 0 to 400px */
+@media screen and (max-width: 400px) {
+    body {
+        background-color: lawngreen;
+    }
+}
 
+/* 401px to 599px */
+@media screen and (min-width: 401px) {
+    body {
+        background-color: blueviolet;
+    }
+}
 
+/* 600px ~ Wider */
+@media screen and (min-width: 600px) {
+    body {
+        background-color: darkred;
+    }
+}
+```
 
+### Weather App UI Part-1
 
+https://fontawesome.com/
 
+1. Get Font Awesome kit from Email
+2. Set Font Awesome Account
+3. Get Font Awesome Script
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/a3605d0287.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./media.css" />
+    <title>Media Queries - Weather UI</title>
+  </head>
+  <body>
+    <section id="weather">
+      <h1>Sydney, Australia</h1>
+      <div class="weather__info__temp">
+        <!-- Weather Information -->
+        <div class="weather__info">
+          <div class="weather__info--date">
+            <p>Thursday</p>
+            <p>Sunny</p>
+            <div class="weather__info--date__icon__temp">
+              <i class="fas fa-sun"></i>
+              <p>24 <sup>&#8451;</sup></p>
+            </div>
+          </div>
+          <div class="weather__info--data">
+            <p>Percipitation: 10%</p>
+            <p>Humidity: 5%</p>
+            <p>Wind: 4 kpm NW</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+```
 
+```css
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+/******************* Utility Components *******************/
+:root {
+  font-size: 62.5%;
+}
 
+body {
+  background-color: #0f9b8e;
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 
+/* Paragraphs */
+p {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
 
+/* Icons */
+i {
+  font-size: 5rem;
+}
 
+/* Superscript Elements */
+sup {
+  font-size: 0.8rem;
+}
 
+::selection {
+  color: #fcc006;
+  background-color: #ff7052;
+}
 
+/******************* Main Styling *******************/
+/* Section ==> Container of them all */
+/* No need to add whitespace cause it's not its child  */
+section#weather {
+  margin: 2rem auto 0;
+}
 
+/* Main Heading */
+h1 {
+  text-align: center;
+  font-size: 6rem;
+  letter-spacing: 0.4rem;
+  font-weight: 300;
+}
 
+/* Weather Info -- Temp Container */
+div.weather__info__temp {
+  padding: 4rem;
+}
 
+/* Weather Info */
+div.weather__info {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 5rem 0;
+}
+```
 
+### Weather App UI Part-2
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/fbadad80a0.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./media.css" />
 
+    <title>Media Queries Part -2: Weather App UI</title>
+  </head>
+  <body>
+    <section id="weather">
+      <h1>Sydney, Australia</h1>
+      <div class="weather__info__temp">
+        <!-- Weather Information -->
+        <div class="weather__info">
+          <div class="weather__info--date">
+            <p>Thursday, Apr 30</p>
+            <p>Sunny</p>
+            <div class="weather__info--date__icon__temp">
+              <i class="fas fa-sun"></i>
+              <!-- <p>24 <sup>&#8457;</sup></p> -->
+              <p>24 <sup>&#8451;</sup></p>
+            </div>
+          </div>
+          <div class="weather__info--data">
+            <p>Percipitation: 10%</p>
+            <p>Humidity: 5%</p>
+            <p>Wind: 4 kpm NW</p>
+          </div>
+        </div>
 
+        <!-- Weather Temps -->
+        <div class="weather__temp">
+          <div class="weather__temp--monday">
+            <p>Monday</p>
+            <i class="fas fa-cloud-sun"></i>
+            <p>23 <sup>&#8451;</sup></p>
+            <p>18 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--tuesday">
+            <p>Tuesday</p>
+            <i class="fas fa-sun"></i>
+            <p>26 <sup>&#8451;</sup></p>
+            <p>21 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--wednesday">
+            <p>Wednesday</p>
+            <i class="fas fa-wind"></i>
+            <p>20 <sup>&#8451;</sup></p>
+            <p>16 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--thursday">
+            <p>Thursday</p>
+            <i class="fas fa-cloud-sun-rain"></i>
+            <p>18 <sup>&#8451;</sup></p>
+            <p>16 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--friday">
+            <p>Friday</p>
+            <i class="fas fa-cloud-showers-heavy"></i>
+            <p>15 <sup>&#8451;</sup></p>
+            <p>11 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--saturday">
+            <p>Saturday</p>
+            <i class="fas fa-cloud-sun"></i>
+            <p>14 <sup>&#8451;</sup></p>
+            <p>10 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--sunday">
+            <p>Sunday</p>
+            <i class="fas fa-cloud-meatball"></i>
+            <p>23 <sup>&#8451;</sup></p>
+            <p>18 <sup>&#8451;</sup></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+```
 
+```css
+/* media.css */
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/******************* Utility Components *******************/
+:root {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #0f9b8e;
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Paragraphs */
+p {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+/* Icons */
+i {
+  font-size: 5rem;
+}
+
+/* Superscript Elements */
+sup {
+  font-size: 0.8rem;
+}
+
+::selection {
+  color: #fcc006;
+  background-color: #ff7052;
+}
+
+/******************* Main Styling *******************/
+/* Section ==> Container of them all */
+/* No need to add whitespace cause it's not its child  */
+section#weather {
+  margin: 2rem auto 0;
+}
+
+/* Main Heading */
+h1 {
+  text-align: center;
+  font-size: 6rem;
+  letter-spacing: 0.4rem;
+  font-weight: 300;
+}
+
+/* Weather Info -- Temp Container */
+div.weather__info__temp {
+  padding: 4rem;
+}
+
+/* Weather Info */
+div.weather__info {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 5rem 0;
+}
+
+/* Weather Temp Container */
+div.weather__temp {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* You can also put media queries here */
+```
+
+### Weather App UI Part-3
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/fbadad80a0.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./media.css" />
+
+    <!-- 500px or smaller -->
+
+    <link
+      rel="stylesheet"
+      media="screen and (max-width:500px)"
+      href="z500px.css"
+    />
+
+    <!-- 600px or smaller -->
+
+    <link
+      rel="stylesheet"
+      media="screen and (max-width:600px)"
+      href="z600px.css"
+    />
+
+    <!-- 800px or smaller -->
+
+    <link
+      rel="stylesheet"
+      media="screen and (max-width:800px)"
+      href="z800px.css"
+    />
+
+    <!-- 900px or wider -->
+
+    <link
+      rel="stylesheet"
+      media="screen and (min-width:900px)"
+      href="z900px.css"
+    />
+
+    <title>Media Queries Part -2: Weather App UI</title>
+  </head>
+  <body>
+    <section id="weather">
+      <h1>Sydney, Australia</h1>
+      <div class="weather__info__temp">
+        <!-- Weather Information -->
+        <div class="weather__info">
+          <div class="weather__info--date">
+            <p>Thursday, Apr 30</p>
+            <p>Sunny</p>
+            <div class="weather__info--date__icon__temp">
+              <i class="fas fa-sun"></i>
+              <!-- <p>24 <sup>&#8457;</sup></p> -->
+              <p>24 <sup>&#8451;</sup></p>
+            </div>
+          </div>
+          <div class="weather__info--data">
+            <p>Percipitation: 10%</p>
+            <p>Humidity: 5%</p>
+            <p>Wind: 4 kpm NW</p>
+          </div>
+        </div>
+
+        <!-- Weather Temps -->
+        <div class="weather__temp">
+          <div class="weather__temp--monday">
+            <p>Monday</p>
+            <i class="fas fa-cloud-sun"></i>
+            <p>23 <sup>&#8451;</sup></p>
+            <p>18 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--tuesday">
+            <p>Tuesday</p>
+            <i class="fas fa-sun"></i>
+            <p>26 <sup>&#8451;</sup></p>
+            <p>21 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--wednesday">
+            <p>Wednesday</p>
+            <i class="fas fa-wind"></i>
+            <p>20 <sup>&#8451;</sup></p>
+            <p>16 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--thursday">
+            <p>Thursday</p>
+            <i class="fas fa-cloud-sun-rain"></i>
+            <p>18 <sup>&#8451;</sup></p>
+            <p>16 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--friday">
+            <p>Friday</p>
+            <i class="fas fa-cloud-showers-heavy"></i>
+            <p>15 <sup>&#8451;</sup></p>
+            <p>11 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--saturday">
+            <p>Saturday</p>
+            <i class="fas fa-cloud-sun"></i>
+            <p>14 <sup>&#8451;</sup></p>
+            <p>10 <sup>&#8451;</sup></p>
+          </div>
+          <div class="weather__temp--sunday">
+            <p>Sunday</p>
+            <i class="fas fa-cloud-meatball"></i>
+            <p>23 <sup>&#8451;</sup></p>
+            <p>18 <sup>&#8451;</sup></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+```
+
+```css
+/* z900px.css */
+section#weather {
+	width: 90rem;
+}
+```
+
+```css
+/* z800px.css */
+/* Weather Temp Container */
+div.weather__temp {
+	flex-direction: column;
+}
+
+/* Day Containers */
+/* Immediate Children */
+div.weather__temp > div {
+	display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 2rem;
+}
+```
+
+```css
+/* z.600px.css */
+/* Main Heading */
+h1 {
+    padding: 0 2rem;
+    font-size: 4rem;
+    font-weight: 600;
+}
+```
+
+```css
+/* z.500px.css */
+/* Weather Info -- Temp Container */
+div.weather__info__temp {
+    padding: 1rem;
+}
+
+/* Weather Info */
+div.weather__info {
+	font-size: 0.7rem;
+    align-items: flex-end;
+}
+
+/* Main Heading */
+h1 {
+    font-size: 3rem !important;
+    padding: 0 1rem;
+}
+
+/* Icon */
+i {
+    font-size: 2.5rem;
+}
+```
+
+`!important` 
+
+기존에 학습한 모든 `CSS Specificity`를 무시하고, `!important`를 선언한 속성에 가장 먼저 우선순위를 부여한다. 꼭 필요한 경우가 아니라면 되도록 사용하지 않는 것이 좋다. 그 이유는 `!important`는 스타일의 자연스러운 흐름을 방해하고, 간혹 까먹었을 때 문제 원인을 찾기가 쉽지 않다.
