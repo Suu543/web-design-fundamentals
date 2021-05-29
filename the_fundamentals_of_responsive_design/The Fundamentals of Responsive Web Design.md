@@ -795,3 +795,316 @@ i {
 `!important` 
 
 기존에 학습한 모든 `CSS Specificity`를 무시하고, `!important`를 선언한 속성에 가장 먼저 우선순위를 부여한다. 꼭 필요한 경우가 아니라면 되도록 사용하지 않는 것이 좋다. 그 이유는 `!important`는 스타일의 자연스러운 흐름을 방해하고, 간혹 까먹었을 때 문제 원인을 찾기가 쉽지 않다.
+
+## Viewport Units Use Cases Part-1 - Font Size
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Font Size</title>
+    <style>
+      /* :root => html => replace px with rem */
+      :root {
+        font-size: 62.5%;
+      }
+
+      h1 {
+        text-align: center;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        /* Dynamically Calculated */
+        font-size: 3vw;
+
+        /* Barebone Value is 14px - For Smaller Screen Sizes */
+        font-size: calc(14px + 2vw);
+        font-size: calc(1.4rem + 2vw);
+      }
+
+      /* For Larger Screen Sizes */
+      @media screen and (min-width: 1500px) {
+        h1 {
+          font-size: 4.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+  </body>
+</html>
+```
+
+## Viewport Units Use Cases Part-2 - Full Screen Sections
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Full Screen Section</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      section {
+        background-color: indigo;
+        color: white;
+
+        /* Full Screen */
+        height: 100vh;
+
+        /* Optional Styles */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Optional Styles */
+      h1 {
+        margin-bottom: 40px;
+        font-size: 68px;
+        font-weight: 300;
+        letter-spacing: 4px;
+      }
+
+      p {
+        font-size: 18px;
+      }
+
+      a {
+        color: white;
+        text-decoration: none;
+        border: 1px solid white;
+        border-radius: 5px;
+        padding: 12px 24px;
+
+        transition: all 0.35s ease-in-out;
+      }
+
+      a:hover {
+        color: indigo;
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <h1>Full Screen and Viewport Units</h1>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat nemo
+        tempore ratione quibusdam recusandae, commodi vel hic magnam. Provident
+        quidem necessitatibus nesciunt cum. Impedit, doloribus! Voluptate sunt
+        voluptatem molestias temporibus?
+      </p>
+      <a href="#">Sign Up</a>
+    </section>
+  </body>
+</html>
+```
+
+## Viewport Units Use Cases Part-3 - Sticky Footer
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Viewport Units Use Cases Part - 3: Sticky Footer</title>
+    <style>
+      :root {
+        font-size: 62.5%;
+      }
+
+      header {
+        background-color: lightsteelblue;
+        height: 7.5rem;
+      }
+
+      section {
+        background-color: lightskyblue;
+        /* Comment Out for the second solution to be visualized */
+        height: 30rem;
+      }
+
+      footer {
+        background-color: lightseagreen;
+        height: 8.5rem;
+      }
+
+      header,
+      section,
+      footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 2.5rem;
+        color: white;
+      }
+
+      /* First Solution */
+      section {
+        height: calc(100vh - 7.5rem - 8.5rem);
+      }
+
+      /* Optional */
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      /* Second Solution ==> Recommended */
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      section {
+        /* This will make the main element take the remaining space dynamically */
+        flex-grow: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Header</header>
+    <section>Section</section>
+    <footer>Footer</footer>
+  </body>
+</html>
+```
+
+## Viewport Units Use Cases Part - 4 - Margins & Paddings
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Viewport Units Use Cases Part - 4: Margins + Paddings</title>
+    <style>
+      header {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        height: 40vh;
+        background-color: lightsalmon;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        /* padding: 80px; */
+        /* padding: 10vh 5vw; */
+        padding: calc(4px + 2vh) calc(4px + 2vw);
+      }
+
+      p {
+        margin-bottom: 3vh;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Fitness Matters</h1>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias
+        laboriosam incidunt debitis voluptatem pariatur labore ea corrupti non
+        provident cupiditate molestiae, necessitatibus dolorum magni officia
+        commodi, id, eligendi harum. Suscipit?
+      </p>
+    </header>
+  </body>
+</html>
+```
+
+## Viewport Units Use Cases Part - 5 -  The Top Border
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Viewport Units Use Cases Part - 5: The Top Border</title>
+    <style>
+      header {
+        background-color: rgb(227, 232, 238);
+        padding: 5vh 5vw;
+
+        /* Top Border */
+        border-top: 5px solid lightslategray;
+
+        /* Making the border responsive ==> vw ==> [(Pixel value / Viewport Width) * 100] */
+        /* 5px / 1500 * 100 = 0.3333*/
+        border-top: 0.3333vw solid lightslategray;
+
+        /* Taking it one step further ==> to make sure it does not get very small on mobile device */
+        /* 2.8 / 1500 * 100 = 0.186 */
+        border-top: calc(2px + 0.186vw) solid lightslategray;
+      }
+
+      a {
+        text-decoration: none;
+        color: #444;
+        margin: 0 2vw;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="#">Link 1</a>
+        <a href="#">Link 2</a>
+        <a href="#">Link 3</a>
+        <a href="#">Link 4</a>
+        <a href="#">Link 5</a>
+      </nav>
+    </header>
+  </body>
+</html>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
